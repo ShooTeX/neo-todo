@@ -3,10 +3,10 @@ package main
 import (
 	"html/template"
 	"io"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/shootex/neo-todo/api"
 	"github.com/shootex/neo-todo/web"
 )
 
@@ -27,10 +27,8 @@ func main() {
 	e.Renderer = t
 	e.Static("/static", "web/static")
 
+	api.SetApiRoutes(e)
 	web.SetWebRoutes(e)
-	e.GET("/test", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
