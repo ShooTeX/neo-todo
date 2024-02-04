@@ -1,0 +1,10 @@
+{
+  "name": "neo-todo",
+  "type": "module",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "scripts": {
+    "watch:css": "tailwindcss -i ./web/styles/main.css -o ./web/static/main.css --watch"
+  }
+}
