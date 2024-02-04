@@ -1,4 +1,4 @@
-{{ define "index" }}
+{{ define "example" }}
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,22 +20,18 @@
       rel="stylesheet"
     />
   </head>
-  <body
-    class="flex flex-col items-center justify-center bg-yellow-300 text-white"
-  >
-    <div
-      class="mt-5 flex flex-col justify-center border-2 border-gray-950 bg-white p-5 text-gray-950"
+  <body class="bg-yellow-300 text-white">
+    <h1 class="text-2xl text-red-500">Hello, {{.}}!</h1>
+
+    <div id="replace">REPLACE ME PLEAASE!</div>
+    <button
+      class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+      hx-get="/api/hello"
+      hx-trigger="click"
+      hx-target="#replace"
     >
-      <div class="flex justify-between">
-        <h1 class="text-3xl font-bold text-red-300">NEO TODO ✔</h1>
-        <a
-          href="https://github.com/shootex/neo-todo"
-          class="cursor-pointer text-sm text-blue-400 underline decoration-2"
-          >github</a
-        >
-      </div>
-      <p>Simple todo app using go, htmx, tailwind & more</p>
-    </div>
+      Click Me To Replace
+    </button>
   </body>
 </html>
 {{ end }}
