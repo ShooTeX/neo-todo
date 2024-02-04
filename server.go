@@ -19,7 +19,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 // INFO: how do I make the template name safe?
 func Hello(c echo.Context) error {
-	return c.Render(http.StatusOK, "hello", "World")
+	return c.Render(http.StatusOK, "index", "World")
 }
 
 func main() {
@@ -29,11 +29,12 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: "method=${method}, uri=${uri}, status=${status}\n"}))
 	e.Renderer = t
+	e.Static("/static", "web/static")
 
-	e.GET("/", func(c echo.Context) error {
+	e.GET("/", Hello)
+	e.GET("/test", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/hello", Hello)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
