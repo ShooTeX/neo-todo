@@ -2,6 +2,9 @@
   "name": "neo-todo",
   "type": "module",
   "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-go-template": "^0.0.15",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1"
   },
   "scripts": {

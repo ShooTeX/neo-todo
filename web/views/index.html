@@ -1,14 +1,19 @@
 {{ define "index" }}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="static/main.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="static/main.css" rel="stylesheet" />
   </head>
   <body>
-    <h1 class="text-red-500 text-2xl">Hello, {{.}}!</h1>
+    <h1 class="text-2xl text-red-500">Hello, {{.}}!</h1>
+    <button
+      class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+    >
+      Button
+    </button>
   </body>
 </html>
 {{ end }}
