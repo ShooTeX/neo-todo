@@ -7,10 +7,10 @@ import (
 )
 
 // INFO: how do I make the template name safe?
-func Home(c echo.Context) error {
+func Index(c echo.Context) error {
 	return c.Render(http.StatusOK, "index", "World")
 }
 
 func SetWebRoutes(e *echo.Echo) {
-	e.GET("/", Home)
+	e.GET("/", Index)
 }
