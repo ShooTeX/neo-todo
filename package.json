@@ -5,6 +5,6 @@
     "tailwindcss": "^3.4.1"
   },
   "scripts": {
-    "watch:css": "tailwindcss -i ./web/styles/main.css -o ./web/static/main.css --watch"
+    "css:build": "tailwindcss -i ./web/styles/main.css -o ./web/static/main.css"
   }
 }
