@@ -7,6 +7,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/shootex/neo-todo/web"
 )
 
 type Template struct {
@@ -15,11 +16,6 @@ type Template struct {
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-// INFO: how do I make the template name safe?
-func Hello(c echo.Context) error {
-	return c.Render(http.StatusOK, "index", "World")
 }
 
 func main() {
@@ -31,7 +27,7 @@ func main() {
 	e.Renderer = t
 	e.Static("/static", "web/static")
 
-	e.GET("/", Hello)
+	web.SetWebRoutes(e)
 	e.GET("/test", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
