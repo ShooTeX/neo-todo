@@ -5,7 +5,8 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "./tmp/main"
-  cmd = "bun css:build && go build -o ./tmp/main ."
+  pre_cmd = ["bun css:build"]
+  cmd = "go build -o ./tmp/main ."
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
@@ -21,7 +22,6 @@ tmp_dir = "tmp"
   poll = false
   poll_interval = 0
   post_cmd = []
-  pre_cmd = []
   rerun = false
   rerun_delay = 500
   send_interrupt = false
