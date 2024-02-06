@@ -36,6 +36,16 @@
       </div>
       <p>Simple todo app using go, htmx, tailwind & more</p>
     </div>
+    <div
+      class="mt-5 flex w-96 flex-col divide-y-2 divide-gray-500 border-2 border-gray-950 bg-white text-gray-950"
+    >
+      {{ range .}}
+      <div class="flex gap-5 p-5">
+        <input type="checkbox" {{ if .Done }}checked{{ end }} />
+        <p>{{ .Description }}</p>
+      </div>
+      {{ end }}
+    </div>
   </body>
 </html>
 {{ end }}
