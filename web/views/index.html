@@ -39,12 +39,14 @@
     </div>
     {{ template "todo-list" . }}
     <form
-      hx-get="htmx/todos/2"
+      hx-post="htmx/todos"
       hx-ext="json-enc"
-      class="mt-5 flex w-96 flex-col gap-5"
+      hx-target="#todo-list"
+      hx-swap="beforeend transition:true"
+      class="mt-5 flex w-96 flex-col"
     >
       <input
-        class="border-2 border-gray-950 bg-white p-3 text-gray-950"
+        class="border-2 border-gray-950 bg-white p-3 text-gray-950 focus:rounded-none focus:border-green-500 focus:outline-none"
         type="text"
         name="description"
         placeholder="new todo"
