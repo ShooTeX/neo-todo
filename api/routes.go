@@ -8,8 +8,6 @@ import (
 func SetApiRoutes(e *echo.Echo) {
 	api := e.Group("/api")
 
-	api.GET("/hello", handlers.Hello)
-
 	api.GET("/todos", handlers.ListTodos)
 	api.POST("/todos", handlers.CreateTodo)
 
