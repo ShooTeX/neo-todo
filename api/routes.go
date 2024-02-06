@@ -9,4 +9,6 @@ func SetApiRoutes(e *echo.Echo) {
 	g := e.Group("/api")
 
 	g.GET("/hello", handlers.Hello)
+	g.GET("/todos", handlers.ListTodos)
+	g.POST("/todos", handlers.CreateTodo)
 }

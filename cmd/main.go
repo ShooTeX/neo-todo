@@ -20,9 +20,6 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-//go:embed db/schema.sql
-var ddl string
-
 func main() {
 	t := &Template{
 		templates: template.Must(template.ParseGlob("web/views/*.html")),
@@ -31,7 +28,7 @@ func main() {
 	e.Use(eMiddleware.Logger())
 	e.Renderer = t
 	e.Static("/static", "web/static")
-	e.Use(middleware.DbMiddleware(ddl))
+	e.Use(middleware.Db())
 
 	api.SetApiRoutes(e)
 	web.SetWebRoutes(e)
