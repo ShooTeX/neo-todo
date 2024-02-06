@@ -9,7 +9,25 @@
     hx-swap="outerHTML transition:true"
     hx-target="#todo-{{ .ID }}"
   />
-  <p class="flex-1">{{ .Description }}</p>
+  <form
+    class="flex-1"
+    hx-ext="json-enc"
+    hx-patch="htmx/todos/{{ .ID }}"
+    hx-swap="outerHTML transition:true"
+    hx-target="#todo-{{ .ID }}"
+  >
+    <input
+      type="text"
+      class="flex-1"
+      value="{{ .Description }}"
+      name="Description"
+      hx-trigger="keyup changed delay:3s"
+      hx-patch="htmx/todos/{{ .ID }}"
+      hx-swap="outerHTML transition:true"
+      hx-target="#todo-{{ .ID }}"
+      class="focus:border-none focus:outline-none focus:ring-0"
+    />
+  </form>
   <input
     class="cursor-pointer text-right"
     type="button"
