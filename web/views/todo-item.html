@@ -1,6 +1,14 @@
 {{ define "todo-item" }}
-<div class="flex gap-5 p-5" id="todo-{{ .ID }}">
-  <input type="checkbox" {{ if .Done }}checked{{ end }} />
+<div class="flex items-center gap-5 p-5" id="todo-{{ .ID }}">
+  <input
+    type="button"
+    class="h-5 w-5  cursor-pointer text-transparent{{ if not .Done }} bg-red-300{{ end }}{{ if .Done }} bg-green-300{{ end }}"
+    hx-vals='{"Done": {{ not .Done }} }'
+    hx-patch="htmx/todos/{{ .ID }}"
+    hx-ext="json-enc"
+    hx-swap="outerHTML transition:true"
+    hx-target="#todo-{{ .ID }}"
+  />
   <p class="flex-1">{{ .Description }}</p>
   <input
     class="cursor-pointer text-right"

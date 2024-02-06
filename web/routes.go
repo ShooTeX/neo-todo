@@ -11,4 +11,5 @@ func SetWebRoutes(e *echo.Echo) {
 	e.POST("/htmx/todos", handlers.CreateTodo)
 	e.GET("/htmx/todos/:id", handlers.GetTodo)
 	e.DELETE("/htmx/todos/:id", handlers.DeleteTodo)
+	e.PATCH("/htmx/todos/:id", handlers.UpdateTodo)
 }

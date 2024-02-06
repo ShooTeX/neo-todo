@@ -3,7 +3,7 @@ SELECT * FROM todos WHERE id = ? LIMIT 1;
 
 -- name: ListTodos :many
 SELECT * FROM todos
-ORDER BY created_at DESC;
+ORDER BY created_at ASC;
 
 -- name: CreateTodo :one
 INSERT INTO todos (description)

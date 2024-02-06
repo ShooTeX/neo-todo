@@ -43,10 +43,11 @@
       hx-ext="json-enc"
       hx-target="#todo-list"
       hx-swap="beforeend transition:true"
-      class="mt-5 flex w-96 flex-col"
+      class="mt-5 flex w-96 items-center gap-5 border-2 border-gray-950 bg-white px-5 py-2 text-gray-950 focus:rounded-none focus:border-green-500 focus:outline-none"
     >
+      <span>➕</span>
       <input
-        class="border-2 border-gray-950 bg-white p-3 text-gray-950 focus:rounded-none focus:border-green-500 focus:outline-none"
+        class="focus:outline-none"
         type="text"
         name="description"
         placeholder="new todo"
