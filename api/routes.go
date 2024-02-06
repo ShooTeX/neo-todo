@@ -6,9 +6,12 @@ import (
 )
 
 func SetApiRoutes(e *echo.Echo) {
-	g := e.Group("/api")
+	api := e.Group("/api")
 
-	g.GET("/hello", handlers.Hello)
-	g.GET("/todos", handlers.ListTodos)
-	g.POST("/todos", handlers.CreateTodo)
+	api.GET("/hello", handlers.Hello)
+
+	api.GET("/todos", handlers.ListTodos)
+	api.POST("/todos", handlers.CreateTodo)
+
+	api.DELETE("/todos/:id", handlers.DeleteTodo)
 }

@@ -27,7 +27,6 @@ func CreateTodo(c echo.Context) error {
 	payload := new(CreateTodoParams)
 	err := c.Bind(payload)
 	if err != nil || payload.Description == "" {
-		println("hello", payload.Description)
 		return c.String(http.StatusBadRequest, "Invalid request, you dumbass.")
 	}
 
@@ -37,4 +36,25 @@ func CreateTodo(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusCreated, todo)
+}
+
+type DeleteTodoParams struct {
+	Id int64 `param:"id"`
+}
+
+func DeleteTodo(c echo.Context) error {
+	db := c.(*middleware.DbContext).Queries
+
+	payload := new(DeleteTodoParams)
+	err := c.Bind(payload)
+	if err != nil {
+		return c.String(http.StatusBadRequest, "Invalid request, you dumbass.")
+	}
+
+	err = db.DeleteTodo(context.Background(), payload.Id)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, &DeleteTodoParams{Id: payload.Id})
 }
