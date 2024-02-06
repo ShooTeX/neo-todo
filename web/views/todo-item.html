@@ -1,9 +1,9 @@
 {{ define "todo-item" }}
 <div class="flex gap-5 p-5" id="todo-{{ .ID }}">
   <input type="checkbox" {{ if .Done }}checked{{ end }} />
-  <p>{{ .Description }}</p>
+  <p class="flex-1">{{ .Description }}</p>
   <input
-    class="flex-1 cursor-pointer text-right"
+    class="cursor-pointer text-right"
     type="button"
     value="🗑️"
     hx-delete="htmx/todos/{{ .ID }}"
