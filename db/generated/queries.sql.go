@@ -58,7 +58,7 @@ func (q *Queries) GetTodo(ctx context.Context, id int64) (Todo, error) {
 
 const listTodos = `-- name: ListTodos :many
 SELECT id, description, done, created_at, updated_at FROM todos
-ORDER BY created_at ASC
+ORDER BY done DESC, created_at ASC
 `
 
 func (q *Queries) ListTodos(ctx context.Context) ([]Todo, error) {
