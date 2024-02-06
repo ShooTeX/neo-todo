@@ -1,0 +1,8 @@
+{{ define "todo-list" }}
+<div
+  class="mt-5 flex w-96 flex-col divide-y-2 divide-gray-500 border-2 border-gray-950 bg-white text-gray-950"
+  id="todo-list"
+>
+  {{ range .}} {{ template "todo-item" . }} {{ end }}
+</div>
+{{ end }}

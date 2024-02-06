@@ -13,6 +13,7 @@
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,16 +37,19 @@
       </div>
       <p>Simple todo app using go, htmx, tailwind & more</p>
     </div>
-    <div
-      class="mt-5 flex w-96 flex-col divide-y-2 divide-gray-500 border-2 border-gray-950 bg-white text-gray-950"
+    {{ template "todo-list" . }}
+    <form
+      hx-get="htmx/todos/2"
+      hx-ext="json-enc"
+      class="mt-5 flex w-96 flex-col gap-5"
     >
-      {{ range .}}
-      <div class="flex gap-5 p-5">
-        <input type="checkbox" {{ if .Done }}checked{{ end }} />
-        <p>{{ .Description }}</p>
-      </div>
-      {{ end }}
-    </div>
+      <input
+        class="border-2 border-gray-950 bg-white p-3 text-gray-950"
+        type="text"
+        name="description"
+        placeholder="new todo"
+      />
+    </form>
   </body>
 </html>
 {{ end }}

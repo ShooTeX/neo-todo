@@ -39,13 +39,21 @@ func (q *Queries) DeleteTodo(ctx context.Context, id int64) error {
 	return err
 }
 
-const getTodo = `-- name: GetTodo :exec
+const getTodo = `-- name: GetTodo :one
 SELECT id, description, done, created_at, updated_at FROM todos WHERE id = ? LIMIT 1
 `
 
-func (q *Queries) GetTodo(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, getTodo, id)
-	return err
+func (q *Queries) GetTodo(ctx context.Context, id int64) (Todo, error) {
+	row := q.db.QueryRowContext(ctx, getTodo, id)
+	var i Todo
+	err := row.Scan(
+		&i.ID,
+		&i.Description,
+		&i.Done,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
 }
 
 const listTodos = `-- name: ListTodos :many

@@ -11,6 +11,7 @@ func SetApiRoutes(e *echo.Echo) {
 	api.GET("/todos", handlers.ListTodos)
 	api.POST("/todos", handlers.CreateTodo)
 
+	api.GET("/todos/:id", handlers.GetTodo)
 	api.DELETE("/todos/:id", handlers.DeleteTodo)
 	api.PATCH("/todos/:id", handlers.UpdateTodo)
 }

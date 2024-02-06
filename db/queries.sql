@@ -1,4 +1,4 @@
--- name: GetTodo :exec
+-- name: GetTodo :one
 SELECT * FROM todos WHERE id = ? LIMIT 1;
 
 -- name: ListTodos :many
