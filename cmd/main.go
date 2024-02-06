@@ -11,6 +11,7 @@ import (
 	"github.com/shootex/neo-todo/api"
 	"github.com/shootex/neo-todo/middleware"
 	"github.com/shootex/neo-todo/web"
+	"github.com/shootex/neo-todo/web/views"
 )
 
 type Template struct {
@@ -21,15 +22,16 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
+var t = &Template{
+	templates: template.Must(template.ParseFS(views.Resources, "*.html")),
+}
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	t := &Template{
-		templates: template.Must(template.ParseGlob("web/views/*.html")),
-	}
 	e := echo.New()
 	e.Use(eMiddleware.Logger())
 	e.Renderer = t
