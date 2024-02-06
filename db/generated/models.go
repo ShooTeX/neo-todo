@@ -5,13 +5,13 @@
 package generated
 
 import (
-	"database/sql"
+	"time"
 )
 
 type Todo struct {
 	ID          int64
 	Description string
-	Done        sql.NullBool
-	CreatedAt   sql.NullTime
-	UpdatedAt   sql.NullTime
+	Done        bool
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }

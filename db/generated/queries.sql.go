@@ -82,20 +82,29 @@ func (q *Queries) ListTodos(ctx context.Context) ([]Todo, error) {
 	return items, nil
 }
 
-const updateTodo = `-- name: UpdateTodo :exec
+const updateTodo = `-- name: UpdateTodo :one
 UPDATE todos
-set description = ?,
-done = ?
-WHERE id = ?
+set description = coalesce(?1, description),
+done = coalesce(?2, done)
+WHERE id = ?3
+RETURNING id, description, done, created_at, updated_at
 `
 
 type UpdateTodoParams struct {
-	Description string
+	Description sql.NullString
 	Done        sql.NullBool
 	ID          int64
 }
 
-func (q *Queries) UpdateTodo(ctx context.Context, arg UpdateTodoParams) error {
-	_, err := q.db.ExecContext(ctx, updateTodo, arg.Description, arg.Done, arg.ID)
-	return err
+func (q *Queries) UpdateTodo(ctx context.Context, arg UpdateTodoParams) (Todo, error) {
+	row := q.db.QueryRowContext(ctx, updateTodo, arg.Description, arg.Done, arg.ID)
+	var i Todo
+	err := row.Scan(
+		&i.ID,
+		&i.Description,
+		&i.Done,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
 }

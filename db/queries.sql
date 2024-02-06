@@ -10,11 +10,12 @@ INSERT INTO todos (description)
 VALUES (?)
 RETURNING *;
 
--- name: UpdateTodo :exec
+-- name: UpdateTodo :one
 UPDATE todos
-set description = ?,
-done = ?
-WHERE id = ?;
+set description = coalesce(sqlc.narg('description'), description),
+done = coalesce(sqlc.narg('done'), done)
+WHERE id = sqlc.arg('id')
+RETURNING *;
 
 -- name: DeleteTodo :exec
 DELETE FROM todos
