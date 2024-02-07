@@ -23,6 +23,7 @@ var t = &Template{
 
 func New() *echo.Echo {
 	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
 	e.Renderer = t
 	e.Static("/static", "web/static")
