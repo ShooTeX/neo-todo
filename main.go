@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	_ "embed"
 	"os"
 
@@ -11,7 +12,12 @@ import (
 )
 
 func Init() (*echo.Echo, error) {
-	db, err := db.New()
+	dbConnection, err := sql.Open("sqlite3", "file:todos.db?cache=shared")
+	if err != nil {
+		return nil, err
+	}
+
+	db, err := db.New(dbConnection)
 	if err != nil {
 		return nil, err
 	}

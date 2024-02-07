@@ -14,12 +14,15 @@ import (
 //go:embed schema.sql
 var ddl string
 
-func New() (*generated.Queries, error) {
+func New(db *sql.DB) (*generated.Queries, error) {
 	ctx := context.Background()
 
-	db, err := sql.Open("sqlite3", "file:todos.db?cache=shared")
-	if err != nil {
-		return nil, err
+	if db == nil {
+		var err error
+		db, err = sql.Open("sqlite3", ":memory:")
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if _, err := db.ExecContext(ctx, ddl); err != nil {
