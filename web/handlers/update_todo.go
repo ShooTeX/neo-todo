@@ -6,17 +6,21 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/shootex/neo-todo/api/handlers"
 	"github.com/shootex/neo-todo/db/generated"
 	"github.com/shootex/neo-todo/middleware"
 	"github.com/shootex/neo-todo/models"
 )
 
-// INFO: how do I make the template name safe?
+type updateTodoParams struct {
+	Description *string `json:"description"`
+	Done        *bool   `json:"done"`
+	Id          int64   `param:"id"`
+}
+
 func UpdateTodo(c echo.Context) error {
 	db := c.(*middleware.DbContext).Queries
 
-	payload := new(handlers.UpdateTodoParams)
+	payload := new(updateTodoParams)
 	err := c.Bind(payload)
 	if err != nil {
 		return err

@@ -8,7 +8,6 @@ import (
 	"github.com/shootex/neo-todo/middleware"
 )
 
-// INFO: how do I make the template name safe?
 func Index(c echo.Context) error {
 	db := c.(*middleware.DbContext).Queries
 

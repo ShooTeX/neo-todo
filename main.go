@@ -8,7 +8,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	eMiddleware "github.com/labstack/echo/v4/middleware"
-	"github.com/shootex/neo-todo/api"
 	"github.com/shootex/neo-todo/middleware"
 	"github.com/shootex/neo-todo/web"
 	"github.com/shootex/neo-todo/web/views"
@@ -38,7 +37,6 @@ func main() {
 	e.Static("/static", "web/static")
 	e.Use(middleware.Db())
 
-	api.SetApiRoutes(e)
 	web.SetWebRoutes(e)
 
 	e.Logger.Fatal(e.Start(":" + port))
