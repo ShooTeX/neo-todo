@@ -1,27 +1,24 @@
-package handlers
+package handler
 
 import (
 	"context"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/shootex/neo-todo/middleware"
 )
 
 type createTodoParams struct {
 	Description string `json:"Description"`
 }
 
-func CreateTodo(c echo.Context) error {
-	db := c.(*middleware.DbContext).Queries
-
+func (h *Handler) CreateTodo(c echo.Context) error {
 	payload := new(createTodoParams)
 	err := c.Bind(payload)
 	if err != nil {
 		return err
 	}
 
-	todo, err := db.CreateTodo(context.Background(), payload.Description)
+	todo, err := h.Db.CreateTodo(context.Background(), payload.Description)
 	if err != nil {
 		return err
 	}

@@ -1,15 +1,11 @@
-package main
+package router
 
 import (
-	_ "embed"
 	"html/template"
 	"io"
-	"os"
 
 	"github.com/labstack/echo/v4"
-	"github.com/shootex/neo-todo/db"
-	"github.com/shootex/neo-todo/handler"
-	"github.com/shootex/neo-todo/router"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/shootex/neo-todo/web/views"
 )
 
@@ -25,20 +21,11 @@ var t = &Template{
 	templates: template.Must(template.ParseFS(views.Resources, "*.html")),
 }
 
-func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+func New() *echo.Echo {
+	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Renderer = t
+	e.Static("/static", "web/static")
 
-	db, err := db.New()
-	if err != nil {
-		panic(err)
-	}
-	r := router.New()
-	h := handler.New(db)
-
-	h.Register(r)
-
-	r.Logger.Fatal(r.Start(":" + port))
+	return e
 }

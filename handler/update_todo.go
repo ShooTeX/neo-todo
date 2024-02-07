@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"context"
@@ -7,7 +7,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/shootex/neo-todo/db/generated"
-	"github.com/shootex/neo-todo/middleware"
 	"github.com/shootex/neo-todo/models"
 )
 
@@ -17,9 +16,7 @@ type updateTodoParams struct {
 	Id          int64   `param:"id"`
 }
 
-func UpdateTodo(c echo.Context) error {
-	db := c.(*middleware.DbContext).Queries
-
+func (h *Handler) UpdateTodo(c echo.Context) error {
 	payload := new(updateTodoParams)
 	err := c.Bind(payload)
 	if err != nil {
@@ -42,7 +39,7 @@ func UpdateTodo(c echo.Context) error {
 		updateParams.Done = sql.NullBool{Bool: *payload.Done, Valid: true}
 	}
 
-	todo, err := db.UpdateTodo(
+	todo, err := h.Db.UpdateTodo(
 		context.Background(),
 		*updateParams,
 	)
